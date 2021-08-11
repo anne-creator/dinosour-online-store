@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from "./ShoppingCart.module.css";
-
+import {FiShoppingCart} from 'react-icons/fi'
 interface Props {
 
 }
@@ -24,7 +24,8 @@ class ShopingCart extends React.Component<Props,state> {
                     this.setState({ isOpen: !this.state.isOpen});
                 }}
                 >
-                Collect Your Cart
+                    <FiShoppingCart/>
+                    <span>Collect Your Cart</span>
                 </button>
                 <div
                 className={styles.cartDropDown}
