@@ -1,1 +1,0 @@
-#This project is showing the cutest cartoon kitty.

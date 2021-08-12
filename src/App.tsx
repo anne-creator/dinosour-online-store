@@ -31,7 +31,7 @@ class App extends Component<Props,State> {
       <div className={styles.app}>
         <div className={styles.appHeader}>
           <img src={logo} className={styles.appLogo} alt="logo"/>
-          <h1>The cat gallery</h1>
+          <h1>The cat Gallery</h1>
         </div>
         <ShoppingCart catGallery={this.state.catGallery} />
         <div className={styles.robotList}>
