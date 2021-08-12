@@ -2,7 +2,7 @@ import React from 'react';
 import styles from "./ShoppingCart.module.css";
 import {FiShoppingCart} from 'react-icons/fi'
 interface Props {
-
+    catGallery: any[]
 }
 interface state {
     isOpen:boolean;
@@ -24,8 +24,8 @@ class ShopingCart extends React.Component<Props,state> {
                     this.setState({ isOpen: !this.state.isOpen});
                 }}
                 >
-                    <FiShoppingCart/>
-                    <span>Collect Your Cart</span>
+                    <FiShoppingCart className={styles.cartIcon}/>
+                    <span> Collect Your Cart</span>
                 </button>
                 <div
                 className={styles.cartDropDown}
@@ -34,8 +34,8 @@ class ShopingCart extends React.Component<Props,state> {
                 }}
                 >
                 <ul>
-                    <li>Gabby</li>
-                    <li>Ervin Howell</li>
+                    <li>a</li>
+                    
                 </ul>
                 </div>
             </div>

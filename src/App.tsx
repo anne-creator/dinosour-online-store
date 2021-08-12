@@ -16,7 +16,7 @@ class App extends Component<Props,State> {
   constructor(props:any){
     super(props);
     this.state = {
-      catGallery:[]
+      catGallery:[],
     }
   }
   componentDidMount(){ 
@@ -24,6 +24,8 @@ class App extends Component<Props,State> {
     .then(response => response.json())
     .then(data => this.setState({catGallery:data}))
   } 
+  
+
   render(){
     return (
       <div className={styles.app}>
@@ -31,7 +33,7 @@ class App extends Component<Props,State> {
           <img src={logo} className={styles.appLogo} alt="logo"/>
           <h1>The cat gallery</h1>
         </div>
-        <ShoppingCart />
+        <ShoppingCart catGallery={this.state.catGallery} />
         <div className={styles.robotList}>
           {
             this.state.catGallery.map(r => (<Cat id={r.id} catName = {r.name} email = {r.email} />))
