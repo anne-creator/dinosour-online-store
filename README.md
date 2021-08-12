@@ -1,2 +1,2 @@
-#try to add something on branch b（change something on github branchb）
-and also delete something
+#the firs time adding something on branch b（change something on git branchb）
+and also delete partly,different from github
