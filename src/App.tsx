@@ -11,7 +11,7 @@ interface Props{}
 interface State {
   catGallery: any[]
 }
-// FIXME:为什么class App extends Component<State,Props> {  调换了State和Props，就报错
+// NOTE:为什么class App extends Component<State,Props> 因为这个泛型函数是Component里面自带的class模板，必须按顺序写。
 class App extends Component<Props,State> {
   constructor(props:any){
     super(props);
