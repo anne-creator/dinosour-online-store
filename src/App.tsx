@@ -1,4 +1,4 @@
-import {Component} from 'react';
+import React, {useState,useEffect} from 'react';
 // 像我们对css那样，React已经自动加入了对css文件的引入对象化的支持，所以我们加入svg的时候，不会报错。
 import logo from './assets/images/logo.svg';
 import './App.css';
@@ -11,37 +11,60 @@ interface Props{}
 interface State {
   catGallery: any[]
 }
-// NOTE:为什么class App extends Component<State,Props> 因为这个泛型函数是Component里面自带的class模板，必须按顺序写。
-class App extends Component<Props,State> {
-  constructor(props:any){
-    super(props);
-    this.state = {
-      catGallery:[],
-    }
-  }
-  componentDidMount(){ 
-    fetch ('https://jsonplaceholder.typicode.com/users')
-    .then(response => response.json())
-    .then(data => this.setState({catGallery:data}))
-  } 
-  
+const App:React.FC = () => {
 
-  render(){
+    const [count,setCount] = useState<number>(0);
+    // NOTE: 网络数据，所以类型为any
+    const [robotGallery, setRobotGallery] = useState<any>([]);
+    // loading 状态
+    const [loading,setLoading] = useState<boolean>(false);
+    const [error,setError] = useState<string>();
+
+    useEffect(() => {
+      document.title = `clicked ${count} times`
+    },[count])
+
+    // NOTE:获取API数据,[]模拟componentDidMount 只在函数加载的时候载入一次。
+    // NOTE:如果不加入【】，会死循环，无限发送API
+     useEffect(() => {
+        
+      const fetchData = async () => {
+        setLoading(true);
+        try{
+          console.log(`loading`);
+          const res = await fetch("https://jsonplaceholder.typicode.com/users")
+          const data = await res.json()
+          setRobotGallery(data)
+        } catch(e){
+          setError(e)
+        }
+      // .then(response => {response.json()
+      // .then(data => setRobotGallery(data))})
+      setLoading(false)
+      }
+      fetchData();
+    },[])
     return (
       <div className={styles.app}>
         <div className={styles.appHeader}>
           <img src={logo} className={styles.appLogo} alt="logo"/>
           <h1>The cat Gallery</h1>
         </div>
-        <ShoppingCart catGallery={this.state.catGallery} />
-        <div className={styles.robotList}>
-          {
-            this.state.catGallery.map(r => (<Cat id={r.id} catName = {r.name} email = {r.email} />))
-          }
-        </div>
+        <button className={styles.button} onClick={() => {setCount(count + 1)}}>Click</button>
+        <span className={styles.clickNumber}>{count}</span>
+        <ShoppingCart catGallery={robotGallery} />
+        {!error || error!=="" && <div>Something wrong</div>}
+        {!loading ?
+          <div className={styles.robotList}>
+            {
+              robotGallery.map((r) => (<Cat id={r.id} catName = {r.name} email = {r.email} />))
+            }
+          </div>
+        :(<span>pic is loading</span>)
+        }
       </div>
     );
   }
-}
+
 
 export default App;
