@@ -27,7 +27,6 @@ const App:React.FC = () => {
     // NOTE:获取API数据,[]模拟componentDidMount 只在函数加载的时候载入一次。
     // NOTE:如果不加入【】，会死循环，无限发送API
      useEffect(() => {
-        
       const fetchData = async () => {
         setLoading(true);
         try{
@@ -44,6 +43,7 @@ const App:React.FC = () => {
       }
       fetchData();
     },[])
+    
     return (
       <div className={styles.app}>
         <div className={styles.appHeader}>
@@ -57,7 +57,7 @@ const App:React.FC = () => {
         {!loading ?
           <div className={styles.robotList}>
             {
-              robotGallery.map((r) => (<Cat id={r.id} catName = {r.name} email = {r.email} />))
+              robotGallery.map((r) => (<Cat id={r.id} name1 = {r.name} email = {r.email} />))
             }
           </div>
         :(<span>pic is loading</span>)

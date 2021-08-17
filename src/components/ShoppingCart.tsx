@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from "./ShoppingCart.module.css";
 import {FiShoppingCart} from 'react-icons/fi'
+import {appContext} from  "../AppState"
 interface Props {
     catGallery: any[]
 }
@@ -17,28 +18,35 @@ class ShopingCart extends React.Component<Props,state> {
     }
     render() {
         return (
-            <div className={styles.cartContainer}>
-                <button
-                className={styles.button}
-                onClick={() => {
-                    this.setState({ isOpen: !this.state.isOpen});
+            <appContext.Consumer>
+                {(value)=> {
+                    return(
+                    <div className={styles.cartContainer}>
+                    <button
+                    className={styles.button}
+                    onClick={() => {
+                        this.setState({ isOpen: !this.state.isOpen});
+                    }}
+                    >
+                        <FiShoppingCart className={styles.cartIcon}/>
+                        <span> Cart has {value.shoppingCart.items.length}</span>
+                    </button>
+                    <div
+                    className={styles.cartDropDown}
+                    style={{
+                        display: this.state.isOpen ? "block" : "none",
+                    }}
+                    >
+                    <ul>
+                        {value.shoppingCart.items.map((i) => (
+                            <li>{i.name1}</li>
+                        ))}
+                        
+                    </ul>
+                    </div>
+                </div>)
                 }}
-                >
-                    <FiShoppingCart className={styles.cartIcon}/>
-                    <span> Collect Your Cart</span>
-                </button>
-                <div
-                className={styles.cartDropDown}
-                style={{
-                    display: this.state.isOpen ? "block" : "none",
-                }}
-                >
-                <ul>
-                    <li>a</li>
-                    
-                </ul>
-                </div>
-            </div>
+            </appContext.Consumer>
         );
     }
 }
