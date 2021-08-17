@@ -2,17 +2,17 @@ import React,{useContext} from 'react';
 import styles from './Cat.module.css';
 // import {appContext } from '../index'
 import {appContext,appSetStateContext} from "../AppState"
-import {withAddToCart} from "./addToCart"
+import {useAddToCart} from "./addToCart"
 
 export interface CatProps {
     id:number;
     name1:string; 
     email:string;
-    addToCart:(id,name1)=> void;
 }
 
-const CatSpecial : React.FC<CatProps> = ({id,name1,email,addToCart}) => {
+const CatSpecial : React.FC<CatProps> = ({id,name1,email}) => {
     const value = useContext(appContext);
+    const addToCart = useAddToCart()
     return (
             <div className={styles.cardContainer}>
                 <img src={`https://robohash.org/${id}?set=set4`} alt="random generate cat img" />
@@ -23,4 +23,4 @@ const CatSpecial : React.FC<CatProps> = ({id,name1,email,addToCart}) => {
             </div>
             )
 }
-export default withAddToCart(CatSpecial);
+export default CatSpecial;
