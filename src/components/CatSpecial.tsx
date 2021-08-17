@@ -2,34 +2,25 @@ import React,{useContext} from 'react';
 import styles from './Cat.module.css';
 // import {appContext } from '../index'
 import {appContext,appSetStateContext} from "../AppState"
+import {withAddToCart} from "./addToCart"
 
-interface CatProps {
+export interface CatProps {
     id:number;
     name1:string; 
     email:string;
+    addToCart:(id,name1)=> void;
 }
 
-const Cat : React.FC<CatProps> = ({id,name1,email}) => {
+const CatSpecial : React.FC<CatProps> = ({id,name1,email,addToCart}) => {
     const value = useContext(appContext);
-    const setState = useContext(appSetStateContext);
-    const addToCart =() => {
-        if(setState){
-            setState(state => {
-                return {...state,
-                    shoppingCart: {
-                    items:[...state.shoppingCart.items, {id,name1}]
-                }}
-            })
-        }
-    }
     return (
             <div className={styles.cardContainer}>
                 <img src={`https://robohash.org/${id}?set=set4`} alt="random generate cat img" />
                 <h2>special Cat</h2>
                 <p>{email}</p>
                 <p>author: {value.username}</p>
-                <button onClick={addToCart}>Add to Cart</button>
+                <button onClick={() => addToCart(id,name1)}>Add to Cart</button>
             </div>
             )
 }
-export default Cat;
+export default withAddToCart(CatSpecial);
