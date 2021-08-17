@@ -6,6 +6,7 @@ import Cat from './components/Cat';
 import ShoppingCart from './components/ShoppingCart'
 // import cats from './mockdata/cat.json'
 import styles from './App.module.css'
+import CatSpecial from './components/CatSpecial';
 
 interface Props{}
 interface State {
@@ -57,7 +58,13 @@ const App:React.FC = () => {
         {!loading ?
           <div className={styles.robotList}>
             {
-              robotGallery.map((r) => (<Cat id={r.id} name1 = {r.name} email = {r.email} />))
+              robotGallery.map((r,index) => (
+                index % 2 == 0 ?(
+                <CatSpecial id={r.id} name1 = {r.name} email = {r.email} />)
+                :(
+                <Cat id={r.id} name1 = {r.name} email = {r.email} />
+                )
+              ))
             }
           </div>
         :(<span>pic is loading</span>)
